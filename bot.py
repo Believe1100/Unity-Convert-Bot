@@ -119,8 +119,6 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             reply_markup=back_to_main_button(),
             parse_mode="Markdown",
         )
-        # We stay in the main menu state conceptually, but we return SELECT_CATEGORY
-        # so that pressing a category later works.
         return SELECT_CATEGORY
 
     # ---------- Category Selection ----------
@@ -163,7 +161,6 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             )
             return ENTER_VALUE
 
-    # Fallback
     return SELECT_CATEGORY
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
