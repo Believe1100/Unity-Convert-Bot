@@ -278,45 +278,28 @@ async def fallback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     return SELECT_CATEGORY
 
 # ---------- Conversation Handler ----------
-states={
-    SELECT_CATEGORY: [
-        CallbackQueryHandler(button_callback, pattern="^(main_menu|quick_guide|about|cat_|unit_)", per_message=True),
-        MessageHandler(filters.TEXT & ~filters.COMMAND, fallback),
-    ],
-    SELECT_FROM_UNIT: [
-        CallbackQueryHandler(button_callback, pattern="^(unit_|main_menu)", per_message=True),
-        MessageHandler(filters.TEXT & ~filters.COMMAND, fallback),
-    ],
-    SELECT_TO_UNIT: [
-        CallbackQueryHandler(button_callback, pattern="^(unit_|main_menu)", per_message=True),
-        MessageHandler(filters.TEXT & ~filters.COMMAND, fallback),
-    ],
-    ENTER_VALUE: [
-        CallbackQueryHandler(button_callback, pattern="^main_menu$", per_message=True),
-        MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message),
-    ],
-}
+conv_handler = ConversationHandler(
     entry_points=[
         CommandHandler("start", start),
         CommandHandler("help", help_command),
         CommandHandler("settings", settings_command),
-        CallbackQueryHandler(button_callback, pattern="^(main_menu|quick_guide|about|cat_|unit_)"),
+        CallbackQueryHandler(button_callback, pattern="^(main_menu|quick_guide|about|cat_|unit_)", per_message=True),
     ],
     states={
         SELECT_CATEGORY: [
-            CallbackQueryHandler(button_callback, pattern="^(main_menu|quick_guide|about|cat_|unit_)"),
+            CallbackQueryHandler(button_callback, pattern="^(main_menu|quick_guide|about|cat_|unit_)", per_message=True),
             MessageHandler(filters.TEXT & ~filters.COMMAND, fallback),
         ],
         SELECT_FROM_UNIT: [
-            CallbackQueryHandler(button_callback, pattern="^(unit_|main_menu)"),
+            CallbackQueryHandler(button_callback, pattern="^(unit_|main_menu)", per_message=True),
             MessageHandler(filters.TEXT & ~filters.COMMAND, fallback),
         ],
         SELECT_TO_UNIT: [
-            CallbackQueryHandler(button_callback, pattern="^(unit_|main_menu)"),
+            CallbackQueryHandler(button_callback, pattern="^(unit_|main_menu)", per_message=True),
             MessageHandler(filters.TEXT & ~filters.COMMAND, fallback),
         ],
         ENTER_VALUE: [
-            CallbackQueryHandler(button_callback, pattern="^main_menu$"),
+            CallbackQueryHandler(button_callback, pattern="^main_menu$", per_message=True),
             MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message),
         ],
     },
@@ -324,7 +307,7 @@ states={
         CommandHandler("start", start),
         CommandHandler("help", help_command),
         CommandHandler("settings", settings_command),
-        CallbackQueryHandler(button_callback, pattern="^main_menu$"),
+        CallbackQueryHandler(button_callback, pattern="^main_menu$", per_message=True),
     ],
 )
 
